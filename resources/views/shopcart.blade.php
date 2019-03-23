@@ -214,18 +214,16 @@ GetCount();
                 //console.log(_this);
                 var goods_id=_this.attr('goods_id');
                 //console.log(goods_id);
-                layer.confirm('.确定删除吗?', function(index){
                 $.get(
                         "cartdel",
                         {goods_id:goods_id},
                         function (res) {
                             if(res==1){
                                 _this.parents('li').remove();
+                                layer.msg('删除成功');
                             }
                         }
                     )
-                    layer.close(index);
-                });
             })
             //点击确认结算
            $('#payment').click(function () {
