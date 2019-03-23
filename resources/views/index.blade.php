@@ -67,7 +67,7 @@
 		<ul class="menu-list">
 			@foreach($firstCate as $v)
 			<li>
-				<a href="{{url('shop/getcateid')}}/{{$v->cate_id}}" id="btnNew">
+				<a href="{{url('shop/allshops')}}?{{$v->cate_id}}" id="btnNew">
 					<i class="xinpin"></i>
 					<span class="title">{{$v->cate_name}}</span>
 				</a>

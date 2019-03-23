@@ -17,13 +17,15 @@ route::prefix("user")->group(function (){
     route::any('buyrecord',"IndexController@buyrecord");
     route::any('willshare','IndexController@willshare');
 });
-// 购物车列表 所有商品列表 商品详情
+// 购物车列表 所有商品列表 商品详情 //搜索
 route::prefix('shop')->group(function(){
     route::any('cart',"ShopController@shopcart")->Middleware('logs');
     route::any('allshops','ShopController@allshops');
     route::any('shopcontent','ShopController@shopcontent');
     route::any('getcateid','ShopController@getcateid');
     route::any('getcart','ShopController@getcart');
+    route::post('search','ShopController@search');
+    route::get('cartdel','ShopController@cartdel');
 
 });
 //注册页面
@@ -37,3 +39,11 @@ route::post('logindo','RegisterController@logindo');
 
 //验证码
 route::any('verify/create',"CodeController@create");
+
+//点击加号
+route::post('jia','ShopController@goodsjia');
+//点击去结算
+route::post('account','ShopController@getaccount');
+route::any('payment','ShopController@payment');
+//点击删除
+route::any('cartalldel','ShopController@cartalldel');

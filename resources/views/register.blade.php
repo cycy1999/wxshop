@@ -210,7 +210,7 @@
                 "registerdo",
                 {admin_tel:admin_tel,admin_pwd:admin_pwd,new_pwd:new_pwd,_token:_token,code:code},
                 function(res){
-                    console.log(res);
+                    // console.log(res);
                     if(res==1){
                         layer.msg('注册成功');
                         location.href="login";

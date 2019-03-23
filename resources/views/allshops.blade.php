@@ -18,7 +18,7 @@
                     <div class="border-inner"></div>
                 </div>
                 <div class="input-box">
-                    <i class="s-icon"></i>
+                    <i class="s-icon" id="search"></i>
                     <input type="text" placeholder="输入“汽车”试试" id="txtSearch" />
                     <i class="c-icon" id="btnClearInput" style="display: none"></i>
                 </div>
@@ -304,6 +304,20 @@
             $.post(
                 "getcateid",
                 {type:type,_token:_token},
+                function (res) {
+                    $('.good-list-inner').empty();
+                    $('.good-list-inner').html(res);
+                }
+            )
+        })
+        //点击搜索
+        $(document).on('click','#search',function () {
+            var search=$("#txtSearch").val();
+            // console.log(search);
+            var _token=$('#_token').val();
+            $.post(
+                "search",
+                {search:search,_token:_token},
                 function (res) {
                     $('.good-list-inner').empty();
                     $('.good-list-inner').html(res);

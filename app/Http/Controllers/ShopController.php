@@ -14,12 +14,13 @@ class ShopController extends Controller
     {
         $admin_id=session('admin_id');
         $where=[
-            'admin_id'=>$admin_id
+            'admin_id'=>$admin_id,
+            'cart_status'=>1
         ];
         $cartInfo=Cart::join('goods','goods.goods_id','=','cart.goods_id')
         ->where($where)->orderBy('cart.create_time','desc')->get();
-
-        return view('shopcart',['cartInfo'=>$cartInfo]);
+        $goodsInfo=Goods::take(4)->get();
+        return view('shopcart',['cartInfo'=>$cartInfo,'goodsInfo'=>$goodsInfo]);
     }
     //点击加入购物车
     public function getcart(Request $request)
@@ -40,14 +41,14 @@ class ShopController extends Controller
                    'goods_id'=>$goods_id,
                    'admin_id'=>$admin_id,
                    'create_time'=>time()
-
                ];
             Cart::insert($data);
            }else{
                $cartInfo2=Cart::where($where)->first();
                $buy_num='';
                $buy_num.=$cartInfo2['buy_number']+1;
-               Cart::where($where)->update(['buy_number'=>$buy_num]);
+               $time=time();
+               Cart::where($where)->update(['buy_number'=>$buy_num,'cart_status'=>1,'create_time'=>$time]);
            }
 
         }
@@ -64,6 +65,21 @@ class ShopController extends Controller
         $goodsInfo=Goods::get();//展示全部商品
 //        dd($cateInfo);die;
         return view('allshops',['cateInfo'=>$cateInfo,'goodsInfo'=>$goodsInfo]);
+    }
+    //删除购物车中的商品
+    public function cartdel(Request $request)
+    {
+        $goods_id=$request->goods_id;
+//        echo $goods_id;
+        $where=[
+            'goods_id'=>$goods_id
+        ];
+        $res=Cart::where($where)->update(['cart_status'=>2,'buy_number'=>0,'create_time'=>0]);
+        if($res){
+            echo 1;
+        }else{
+            echo 2;
+        }
     }
     //ajax 跳转页面
     public function getcateid(Request $request)
@@ -117,6 +133,27 @@ class ShopController extends Controller
         }
         return $cate_id;
     }
+    //搜索
+    public function search(Request $request)
+    {
+        $search=$request->search;
+        if(empty($search)){
+           $goodsInfo= Goods::get();
+        }else{
+            $goodsInfo=Goods::where('goods_name','like',"%$search%")->get();
+        }
+        return view('div',['goodsInfo'=>$goodsInfo]);
+    }
+    //点击加号
+    public function goodsjia(Request $request)
+    {
+        $num=$request->num;
+        $goods_id=$request->goods_id;
+       $where=[
+           'goods_id'=>$goods_id
+       ];
+       Cart::where($where)->update(['buy_number'=>$num]);
+    }
     //商品详情页
     public function shopcontent(Request $request)
     {
@@ -129,4 +166,30 @@ class ShopController extends Controller
         return view('shopcontent',['arr'=>$arr]);
     }
 
+    //提交订单
+    public function getaccount(Request $request)
+    {
+        $goods_id=$request->goods_id;
+        session(['goods_id'=>$goods_id]);
+    }
+
+    public function payment()
+    {
+        $goods_id=session('goods_id');
+        $goods_id=explode(',',$goods_id);
+        $goodsInfo=Cart::join('goods','goods.goods_id','=','cart.goods_id')->whereIn('cart.goods_id',$goods_id)->get();
+        return view('payment',['goodsInfo'=>$goodsInfo]);
+    }
+    //全删
+    public function cartalldel(Request $request)
+    {
+        $goods_id=$request->goods_id;
+        $goods_id=explode(',',$goods_id);
+        $res=Cart::whereIn('goods_id',$goods_id)->update(['cart_status'=>2,'buy_number'=>0,'create_time'=>0]);
+        if($res){
+            echo 1;
+        }else{
+            echo 2;
+        }
+    }
 }
