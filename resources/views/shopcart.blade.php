@@ -87,7 +87,7 @@
         <div class="footer clearfix">
             <ul>
                 <li class="f_home"><a href="{{url('/')}}" ><i></i>潮购</a></li>
-                <li class="f_single"><a href="/v41/post/index.do" ><i></i>晒单</a></li>
+                <li class="f_single"><a href="{{url('user/willshare')}}" ><i></i>晒单</a></li>
                 <li class="f_car"><a id="btnCart" href="{{url('shop/cart')}}" class="hover"><i></i>购物车</a></li>
                 <li class="f_personal"><a href="{{url('user/page')}}" ><i></i>我的潮购</a></li>
             </ul>

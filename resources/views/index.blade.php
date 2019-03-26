@@ -177,10 +177,9 @@
 			</li>
 		</ul>
 		<div class="sub-nav four" style="display: none;">
-			<a href="#"><i class="announced"></i>最新揭晓</a>
-			<a href="#"><i class="single"></i>晒单</a>
-			<a href="#"><i class="personal"></i>我的潮购</a>
-			<a href="#"><i class="shopcar"></i>购物车</a>
+			<a href="{{url('user/willshare')}}"><i class="single"></i>晒单</a>
+			<a href="{{url('user/page')}}"><i class="personal"></i>我的潮购</a>
+			<a href="{{url('shop/cart')}}"><i class="shopcar"></i>购物车</a>
 		</div>
 	</div>
 </div>
