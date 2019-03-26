@@ -166,7 +166,6 @@ class ShopController extends Controller
 
         return view('shopcontent',['arr'=>$arr]);
     }
-
     //提交订单
     public function getaccount(Request $request)
     {

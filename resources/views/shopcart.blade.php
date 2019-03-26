@@ -2,6 +2,7 @@
 @section('content')
     <link href="{{url('css/cartlist.css')}}" rel="stylesheet" type="text/css" />
     <input name="hidUserID" type="hidden" id="hidUserID" value="-1" />
+    <input type="hidden" name="_token" id="_token" value="{{csrf_token()}}">
     @csrf
     <div>
         <!--首页头部-->
@@ -75,7 +76,7 @@
                                 </p>
                             </div>
                             <div class="gRate" data-productid="23458">
-                                <a href="javascript:;"><s></s></a>
+                                <a codeid="12785750" class="_a" canbuy="646" goods_id="{{$v->goods_id}}"><s></s></a>
                             </div>
                         </div>
                     </li>
@@ -224,6 +225,25 @@ GetCount();
                             }
                         }
                     )
+            })
+
+            $(document).on('click','._a',function () {
+                var _this=$(this);
+                var goods_id=_this.attr('goods_id');
+
+                var _token=$('#_token').val();
+                $.post(
+                    "getcart",
+                    {goods_id:goods_id,_token:_token},
+                    function (res) {
+                        if(res==1){
+                            location.href="{{'/login'}}";
+                        }else{
+                            history.go(0);
+                        }
+
+                    }
+                )
             })
             //点击确认结算
            $('#payment').click(function () {

@@ -77,6 +77,18 @@
                 var address_detail=$("[name='address_detail']").val();
                 var _token=$("[name='_token']").val();
                 var _check=$("#_check").prop('checked');
+                if(address_name==''){
+                    layer.msg('收货姓名不能为空');
+                    return false;
+                }
+                if(address_tel==''){
+                    layer.msg('收货手机号不能为空');
+                    return false;
+                }
+                if(address_detail==''){
+                    layer.msg('详细地址不能为空');
+                    return false;
+                }
                 var is_default='';
                 if(_check==true){
                     is_default=1;

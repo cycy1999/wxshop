@@ -198,8 +198,12 @@
                            
                 <div class="pro_foot"> 
                         <a href="" class="">第10364潮正在进行中<span class="dotting"></span></a>
-                        <a href="" class="shopping">立即参与</a>
-                    <span href="" class="fr"><a href="{{url('shop/cart')}}"><i></i></a></span>
+                        <a href="{{url('/payment')}}?goods_id={{$arr->goods_id}}" class="shopping">立即参与</a>
+                    <span href="" class="fr">
+                        <a href="{{url('shop/cart')}}">
+                            <i></i>
+                        </a>
+                    </span>
                 </div>
             </div>
         </div>
