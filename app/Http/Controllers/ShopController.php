@@ -6,7 +6,8 @@ use App\Model\Category;
 use App\Model\Goods;
 use App\Model\Cart;
 use Illuminate\Http\Request;
-
+use App\Model\Area;
+use App\Model\Address;
 class ShopController extends Controller
 {
     //购物车页面
@@ -84,7 +85,7 @@ class ShopController extends Controller
     //ajax 跳转页面
     public function getcateid(Request $request)
     {
-        $cate_id=$request->cate_id;
+        $cate_id=$request->input('cate_id');
 //        echo $cate_id;die;
         $type=$request->type;
 
@@ -178,7 +179,16 @@ class ShopController extends Controller
         $goods_id=session('goods_id');
         $goods_id=explode(',',$goods_id);
         $goodsInfo=Cart::join('goods','goods.goods_id','=','cart.goods_id')->whereIn('cart.goods_id',$goods_id)->get();
-        return view('payment',['goodsInfo'=>$goodsInfo]);
+        $price=0;
+        foreach($goodsInfo as $v){
+            $price+=$v['buy_number']*$v['self_price'];
+        }
+        $where=[
+            'admin_id'=>session('admin_id'),
+            'is_default'=>1
+        ];
+        $addressInfo=Address::where($where)->first();
+        return view('payment',['goodsInfo'=>$goodsInfo,'price'=>$price,'addressInfo'=>$addressInfo]);
     }
     //全删
     public function cartalldel(Request $request)
@@ -186,6 +196,111 @@ class ShopController extends Controller
         $goods_id=$request->goods_id;
         $goods_id=explode(',',$goods_id);
         $res=Cart::whereIn('goods_id',$goods_id)->update(['cart_status'=>2,'buy_number'=>0,'create_time'=>0]);
+        if($res){
+            echo 1;
+        }else{
+            echo 2;
+        }
+    }
+    //编辑购物车列表
+    public function address()
+    {
+        $where=[
+            'admin_id'=>session('admin_id'),
+            'address_status'=>1
+        ];
+        $addressInfo=Address::where($where)->get();
+
+        return view('address',['addressInfo'=>$addressInfo]);
+    }
+    //添加收货地址
+    public function saveaddress()
+    {
+
+        $topAddressInfo=$this->topaddress(0);
+        return view('writeaddr',['topAddressInfo'=>$topAddressInfo]);
+    }
+    //获取顶级收货地址
+    public function topaddress($pid)
+    {
+        $where=[
+            'pid'=>$pid
+        ];
+        $topAddressInfo=Area::where($where)->get();
+//        print_r($topAddressInfo);
+        return $topAddressInfo;
+    }
+
+    public function addaddress(Request $request)
+    {
+        $data=$request->all();
+        unset($data['_token']);
+        $admin_id=session('admin_id');
+        $data['admin_id']=$admin_id;
+        $where=[
+            'admin_id'=>$admin_id
+        ];
+        if($data['is_default']==1){
+           $res=Address::where($where)->update(['is_default'=>2]);
+           $res=Address::where($where)->insert($data);
+        }else{
+            $res=Address::where($where)->insert($data);
+        }
+        if($res){
+            echo 1;
+        }else{
+            echo 2;
+        }
+    }
+    //点击默认
+    public function default(Request $request)
+    {
+        $address_id=$request->address_id;
+        $where=[
+            'admin_id'=>session('admin_id'),
+            'address_id'=>$address_id
+        ];
+        $newwhere=[
+            'admin_id'=>session('admin_id')
+        ];
+        $res=Address::where($newwhere)->update(['is_default'=>2]);
+        $res1=Address::where($where)->update(['is_default'=>1]);
+        if($res){
+            echo 1;
+        }else{
+            echo 2;
+        }
+    }
+    //点击删除
+    public function addressdel(Request $request)
+    {
+        $address_id=$request->address_id;
+        $where=[
+            'address_id'=>$address_id
+        ];
+        $res=Address::where($where)->update(['address_status'=>2]);
+        if($res){
+            echo 1;
+        }else{
+            echo 2;
+        }
+    }
+    //点击编辑
+    public function addressedit(Request $request)
+    {
+        $address_id=$request->address_id;
+        $where=[
+            'address_id'=>$address_id
+        ];
+        $addressInfo=Address::where($where)->first();
+        return view('addressedit',['addressInfo'=>$addressInfo]);
+    }
+    //编辑执行
+    public function addressupd(Request $request)
+    {
+        $address_id=$request->address_id;
+        $data=$request->all();
+        $res=Address::where('address_id',$address_id)->update($data);
         if($res){
             echo 1;
         }else{

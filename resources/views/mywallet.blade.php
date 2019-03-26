@@ -1,19 +1,8 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-    <title>我的钱包</title>
-    <meta content="app-id=984819816" name="apple-itunes-app" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no, maximum-scale=1.0" />
-    <meta content="yes" name="apple-mobile-web-app-capable" />
-    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
-    <meta content="telephone=no" name="format-detection" />
-    <link href="css/comm.css" rel="stylesheet" type="text/css" />
-    <link href="css/mywallet.css" rel="stylesheet" type="text/css" />
-    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-</head>
-<body>
-    
+﻿@extends('include')
+@section('content')
+    <link href="{{url('css/comm.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('css/mywallet.css')}}" rel="stylesheet" type="text/css" />
+
 <!--触屏版内页头部-->
 <div class="m-block-header" id="div-header">
     <strong id="m-title">我的钱包</strong>
@@ -23,7 +12,7 @@
 
     <div class="wallet-con">
         <ul class="registerCon clearfix">
-  			<li><img src="images/goods1.jpg" alt=""></li>	
+  			<li><img src="/12-1P310114040.jpg" alt=""></li>
   			<li>
   				<h3>账户余额</h3>
   				<p class="red">￥<i>0</i></p>
@@ -54,5 +43,5 @@
         	
         </div>
     </div>
-</body>
-</html>
+@endsection
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>

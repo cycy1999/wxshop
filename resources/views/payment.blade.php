@@ -1,4 +1,4 @@
-@extends('include');
+@extends('include')
 @section('content')
     <link rel="stylesheet" href="{{url('css/cartlist.css')}}">
     <link rel="stylesheet" href="{{url('layui/css/layui.css')}}">
@@ -31,17 +31,26 @@
             <div id="divMore">
                 
             </div>
-            <p class="gray9">总需支付金额：<em class="orange"><i>￥</i>1.00</em></p>
+            <p class="gray9">总需支付金额：<em class="orange"><i>￥</i>{{$price}}</em></p>
         </div>
 
         <div class="other_pay marginB">
-            
-            <a href="javascript:;" class="method chaomoney">
-            	<i></i>潮购值抵扣：<span class="gray9">(可用潮购值<em>100</em>)</span><em class="orange fr"></em>
-            </a>
-            <a href="javascript:;" class="method leftmoney">
-            	<i></i>账户总额：<span class="gray9">(￥<em>0.00</em>)</span><em class="orange fr"></em>
-            </a>
+
+            <div style="border:solid yellow 1px">
+                <table border="0">
+                    <tr>
+                        <td class="p_td" width="200">收货人姓名</td>
+                        <td class="p_td" width="300">手机</td>
+                        <td class="p_td" width="395">收货地址</td>
+                    </tr>
+                    <tr>
+                        <td>{{$addressInfo->address_name}}</td>
+                        <td>{{$addressInfo->address_tel}}</td>
+                        <td>{{$addressInfo->address_detail}}</td>
+                    </tr>
+                </table>
+            </div>
+            <font font-size="18px" color="red"><a href="{{url('/address')}}">编辑</a></font>
             <a href="javascript:;" class="wzf checked">
             	<b class="z-set"></b>第三方支付
             </a>
@@ -98,7 +107,7 @@
 	
 	$(document).ready(function(){
 		var total=0;
-		console.log($('.g-pay-lst li').length);
+		// console.log($('.g-pay-lst li').length);
 		for(var i = 0;i<$('.g-pay-lst li').length;i++){
 		
 			total +=parseInt($('.g-pay-lst li').eq(i).find('dd em.price').text());

@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-    <title>安全设置</title>
-    <meta content="app-id=984819816" name="apple-itunes-app" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no, maximum-scale=1.0" />
-    <meta content="yes" name="apple-mobile-web-app-capable" />
-    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
-    <meta content="telephone=no" name="format-detection" />
-    <link href="css/comm.css" rel="stylesheet" type="text/css" />
-    <link href="css/mywallet.css" rel="stylesheet" type="text/css" />
-    <link href="css/safeset.css" rel="stylesheet" type="text/css" />
+@extends('include')
+@section('content')
+    <link href="{{url('css/mywallet.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('css/safeset.css')}}" rel="stylesheet" type="text/css" />
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-</head>
-<body>
-    
 <!--触屏版内页头部-->
 <div class="m-block-header" id="div-header">
     <strong id="m-title">安全设置</strong>
@@ -27,9 +15,9 @@
             <ul class="w-content clearfix">
                 <li>
                     <em class="login"></em>
-                    <a href="">登录密码</a>
+                    <span font-size="12px;">登录密码</span>
                     <s class="fr"></s>
-                    <span class="fr">修改</span>
+                    <span class="fr"><a href="{{url('user/respwd')}}">修改</a></span>
                 </li>
                 <li>
                     <em class="pay"></em>
@@ -45,5 +33,4 @@
             </ul>     
         </div>
     </div>
-</body>
-</html>
+@endsection

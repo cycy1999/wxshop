@@ -8,13 +8,13 @@
     </div>
 
     <div class="welcome">
-        <i class="set"></i>
+        <div style="float: right" margin-top:100px; margin:50px;><a href="{{url('user/seting')}}"><font>设置</font></a></div>
         <div class="login-img clearfix">
             <ul>
-                <li><img src="{{url('images/goods2.jpg')}}" alt=""></li>
+                <li><img src="/12-1P310114040.jpg" alt=""></li>
                 <li class="name">
-                    <h3>兰兰</h3>
-                    <p>ID：10030053</p>
+                    <h3>齐天大圣</h3>
+                    <p>ID：505050</p>
                 </li>
                 <li class="next fr"><s></s></li>
             </ul>
@@ -38,8 +38,8 @@
         <a href="{{url('user/buyrecord')}}"><s class="m_s1"></s>潮购记录<i></i></a>
         <a href="/v44/member/orderlist.do"><s class="m_s2"></s>获得的商品<i></i></a>
         <a href="/v44/member/postlist.do"><s class="m_s3"></s>我的晒单<i></i></a>
-        <a href="/v44/member/mywallet.do"><s class="m_s4"></s>我的钱包<i></i></a>
-        <a href="/v44/member/mywallet.do"><s class="m_s5"></s>收货地址<i></i></a>
+        <a href="{{url('user/mywallet')}}"><s class="m_s4"></s>我的钱包<i></i></a>
+        <a href="{{url('address')}}"><s class="m_s5"></s>收货地址<i></i></a>
         <a href="/v44/help/help.do" class="mt10"><s class="m_s6"></s>帮助与反馈<i></i></a>
         <a href="/v44/help/help.do"><s class="m_s7"></s>二维码分享<i></i></a>
         <p class="colorbbb">客服热线：400-666-2110  (工作时间9:00-17:00)</p>

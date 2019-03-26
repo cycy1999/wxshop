@@ -1,4 +1,5 @@
-﻿@extends('include')
+﻿<div>
+@extends('include')
 @section('content')
     <link rel="stylesheet" href="{{url('css/mui.min_1.css')}}">
     <link href="{{url('css/goods.css')}}" rel="stylesheet" type="text/css" />
