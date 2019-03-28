@@ -56,7 +56,6 @@
                         <span class='items' ><a href="{{url('shop/allshops')}}">全部商品</a></span>
                     </li>
                     @foreach($cateInfo as $v)
-
                         <li sortid='100' reletype='1' linkaddr='' class="_li">
                             <span class='items' cate_id="{{$v->cate_id}}">
                                 <a href="javascript:;">{{$v->cate_name}}</a>

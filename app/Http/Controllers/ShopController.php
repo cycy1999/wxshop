@@ -150,10 +150,22 @@ class ShopController extends Controller
     {
         $num=$request->num;
         $goods_id=$request->goods_id;
+        $admin_id=session('admin_id');
+        $goods_num=$request->goods_num;
+        if($num>$goods_num){
+            $data=[
+                'buy_number'=>$goods_num
+            ];
+        }else{
+            $data=[
+                'buy_number'=>$num
+            ];
+        }
        $where=[
-           'goods_id'=>$goods_id
+           'goods_id'=>$goods_id,
+           'admin_id'=>$admin_id
        ];
-       Cart::where($where)->update(['buy_number'=>$num]);
+       Cart::where($where)->update($data);
     }
     //商品详情页
     public function shopcontent(Request $request)
@@ -162,7 +174,7 @@ class ShopController extends Controller
         $where=[
             'goods_id'=>$goods_id
         ];
-        $arr=Goods::where($where)->first(['goods_name','goods_desc','goods_img','self_price']);
+        $arr=Goods::where($where)->first(['goods_name','goods_desc','goods_img','self_price','goods_id']);
 
         return view('shopcontent',['arr'=>$arr]);
     }
@@ -170,23 +182,48 @@ class ShopController extends Controller
     public function getaccount(Request $request)
     {
         $goods_id=$request->goods_id;
-        session(['goods_id'=>$goods_id]);
+        if(empty($goods_id)){
+            echo 1;
+        }else{
+            session(['goods_id'=>$goods_id]);
+        }
+
     }
 
-    public function payment()
+    public function payment(Request $request)
     {
+        $goods_id1=$request->goods_id;
         $goods_id=session('goods_id');
-        $goods_id=explode(',',$goods_id);
-        $goodsInfo=Cart::join('goods','goods.goods_id','=','cart.goods_id')->whereIn('cart.goods_id',$goods_id)->get();
-        $price=0;
-        foreach($goodsInfo as $v){
-            $price+=$v['buy_number']*$v['self_price'];
+//        echo $goods_id;die;
+        if(!empty($goods_id1)){
+            $gwhere=[
+                'goods_id'=>$goods_id1
+            ];
+            $goodsInfo=Goods::where($gwhere)->get();
+//            print_r($goodsInfo);die;
+            $price=0;
+            foreach($goodsInfo as $v){
+                $price+=$v['self_price'];
+            }
+            $where=[
+                'admin_id'=>session('admin_id'),
+                'is_default'=>1
+            ];
+            $addressInfo=Address::where($where)->first();
+        }else{
+            $goods_id=explode(',',$goods_id);
+            $goodsInfo=Cart::join('goods','goods.goods_id','=','cart.goods_id')->whereIn('cart.goods_id',$goods_id)->get();
+            $price=0;
+            foreach($goodsInfo as $v){
+                $price+=$v['buy_number']*$v['self_price'];
+            }
+            $where=[
+                'admin_id'=>session('admin_id'),
+                'is_default'=>1
+            ];
+            $addressInfo=Address::where($where)->first();
         }
-        $where=[
-            'admin_id'=>session('admin_id'),
-            'is_default'=>1
-        ];
-        $addressInfo=Address::where($where)->first();
+
         return view('payment',['goodsInfo'=>$goodsInfo,'price'=>$price,'addressInfo'=>$addressInfo]);
     }
     //全删

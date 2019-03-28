@@ -81,4 +81,5 @@ class IndexController extends Controller
             echo 4;
         }
     }
+
 }

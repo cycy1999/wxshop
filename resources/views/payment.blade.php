@@ -22,7 +22,13 @@
                                 
                                    {{$v->goods_name}}
                             </dt>
-                            <dd><em class="price">{{$v->buy_number}}/</em><em>{{$v->self_price}}</em></dd>
+                            <dd><em class="price">
+                                    @if($v->buy_number=='')
+                                        1
+                                    @else
+                                    {{$v->buy_number}}
+                                    @endif
+                                        /</em><em>{{$v->self_price}}</em></dd>
                         </dl>
                     </a>
                 </li>
@@ -31,6 +37,7 @@
             <div id="divMore">
                 
             </div>
+
             <p class="gray9">总需支付金额：<em class="orange"><i>￥</i>{{$price}}</em></p>
         </div>
 
@@ -224,6 +231,11 @@
             content: $('.paywrapp')
         })
     })
+  
+        $("#subbtn").click(function(){
+            location.href="alipay/mobilepay";
+        })
+   
         
 </script>
 @endsection

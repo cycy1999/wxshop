@@ -14,7 +14,7 @@
         <div class="g-Cart-list">
             <ul id="cartBody">
                 @foreach($cartInfo as $v)
-                <li goods_id="{{$v->goods_id}}">
+                <li goods_id="{{$v->goods_id}}" goods_num="{{$v->goods_num}}">
                     <s class="xuan current"></s>
                     <a class="fl u-Cart-img" href="/v44/product/12501977.do">
                         <img src="/goodsimg/{{$v->goods_img}}" border="0" alt="">
@@ -26,7 +26,7 @@
                         </span>
                         <div class="num-opt">
                             <em class="num-mius dis min"><i></i></em>
-                            <input class="text_box" name="num" maxlength="6" type="text" value="{{$v->buy_number}}" codeid="12501977">
+                            <input class="text_box" name="num" maxlength="6" type="text" value="{{$v->buy_number}}" self_price="{{$v->self_price}}" codeid="12501977">
                             <em class="num-add add"><i></i></em>
                         </div>
                         <a href="javascript:;" name="delLink" cid="12501977" isover="0" class="z-del" goods_id="{{$v->goods_id}}">
@@ -118,26 +118,47 @@
         )
         GetCount();
     })
+    <!-- 内容改变 -->
+    $(".text_box").blur(function(){
+       var num=parseInt($(this).val());
+       <!-- 库存 -->
+       var goods_num=$(this).parents('li').attr('goods_num');
+       if(num>goods_num){
+           layer.msg('您购买的商品数量超过了库存哦');
+           var bnum=goods_num-num;
+           if(bnum<1){
+                $(this).val(goods_num);
+           }
+       }
+       var goods_id=$(this).parents('li').attr('goods_id');
+       $.post(
+           '/jia',
+           {num:num,goods_id:goods_id,_token:$("[name='_token']").val(),goods_num:goods_num},
+           function(res){
+               
+           }
+       )
+       GetCount();
+    })
+    $(".min").click(function () {
+                var t = $(this).next();
 
-$(".min").click(function () {
-            var t = $(this).next();
+                //console.log(num);
 
-            //console.log(num);
-
-            if(t.val()>1){
-                t.val(parseInt(t.val()) - 1);
-            var num=t.val();
-            var goods_id=$(this).parents('li').attr('goods_id');
-            $.post(
-                '/jia',
-                {num:num,goods_id:goods_id,_token:$("[name='_token']").val()},
-                function(res){
-                    console.log(res);
-            }
-            )
-                GetCount();
-            }
-        })
+                if(t.val()>1){
+                    t.val(parseInt(t.val()) - 1);
+                var num=t.val();
+                var goods_id=$(this).parents('li').attr('goods_id');
+                $.post(
+                    '/jia',
+                    {num:num,goods_id:goods_id,_token:$("[name='_token']").val()},
+                    function(res){
+                        console.log(res);
+                }
+                )
+                    GetCount();
+                }
+            })   
     })
 
 
@@ -261,7 +282,12 @@ GetCount();
                   "/account",
                   {goods_id: goods_id,_token:$("[name='_token']").val()},
                   function (res) {
-                      location.href="/payment";
+                      if(res==1){
+                          layer.msg('您还没有选择商品哦');
+                      }else{
+                          location.href="/payment";
+                      }
+
                   }
               )
            })

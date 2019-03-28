@@ -49,8 +49,8 @@ route::any('verify/create',"CodeController@create");
 //点击加号
 route::post('jia','ShopController@goodsjia');
 //点击去结算
-route::post('account','ShopController@getaccount');
-route::any('payment','ShopController@payment');
+route::post('account','ShopController@getaccount')->Middleware('logs');
+route::any('payment','ShopController@payment')->Middleware('logs');
 //点击删除
 route::any('cartalldel','ShopController@cartalldel');
 //点击编辑
@@ -64,3 +64,7 @@ route::get('default','ShopController@default');
 //点击删除
 route::get('addressdel','ShopController@addressdel');
 route::get('addressupd','ShopController@addressupd');
+//支付宝
+route::prefix('alipay')->group(function(){
+    route::get('mobilepay',"AlipayController@mobilepay");
+});

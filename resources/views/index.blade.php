@@ -42,11 +42,11 @@
 					</a>
 				</li>
 				<li style="width: 414px; float: left; display: block;" class="flex-active-slide">
-					<a href="http://weixin.1yyg.com/v40/GoodsSearch.do?q=%E6%B8%85%E5%87%89%E4%B8%80%E5%A4%8F&amp;pf=weixin"><img src="https://img.1yyg.net/Poster/20170605084728556.jpg" alt="">
+					<a href="http://weixin.1yyg.com/v40/GoodsSearch.do?q=%E6%B8%85%E5%87%89%E4%B8%80%E5%A4%8F&amp;pf=weixin"><img src="12-1P310114040.jpg" alt="">
 					</a>
 				</li>
 				<li style="width: 414px; float: left; display: block;" class="">
-					<a href="http://weixin.1yyg.com/v40/GoodsSearch.do?q=%E6%96%B0%E9%B2%9C%E6%B0%B4%E6%9E%9C&amp;pf=weixin"><img src="https://img.1yyg.net/Poster/20170518163741543.jpg" alt=""></a>
+					<a href="http://weixin.1yyg.com/v40/GoodsSearch.do?q=%E6%96%B0%E9%B2%9C%E6%B0%B4%E6%9E%9C&amp;pf=weixin"><img src="12-1P310114040.jpg" alt=""></a>
 				</li>
 				<li style="width: 414px; float: left; display: block;" class="">
 					<a href="http://weixin.1yyg.com/v27/products/23559.do?pf=weixin">
@@ -67,7 +67,7 @@
 		<ul class="menu-list">
 			@foreach($firstCate as $v)
 			<li>
-				<a href="{{url('shop/allshops')}}?{{$v->cate_id}}" id="btnNew">
+				<a href="{{url('shop/allshops')}}?cate_id={{$v->cate_id}}" id="btnNew">
 					<i class="xinpin"></i>
 					<span class="title">{{$v->cate_name}}</span>
 				</a>
