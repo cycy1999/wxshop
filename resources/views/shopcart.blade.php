@@ -280,7 +280,7 @@ GetCount();
                goods_id=goods_id.substr(0,goods_id.length-1);
               $.post(
                   "/account",
-                  {goods_id: goods_id,_token:$("[name='_token']").val()},
+                  {goods_id: goods_id,_token:"{{csrf_token()}}"},
                   function (res) {
                       if(res==1){
                           layer.msg('您还没有选择商品哦');
