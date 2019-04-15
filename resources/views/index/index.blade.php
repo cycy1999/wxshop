@@ -2,7 +2,7 @@
 <html  class="x-admin-sm">
 <head>
 	<meta charset="UTF-8">
-	<title>后台登录-X-admin2.1</title>
+	<title>superman</title>
 	<meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="{{url('css/xadmin.css')}}">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript"src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-    <script src="{{url('layui/layui.js')}}" charset="utf-8"></script>
+    <script src="{{url('lib/layui/layui.js')}}" charset="utf-8"></script>
 
     <script type="text/javascript" src="{{url('js/xadmin.js')}}"></script>
     <script type="text/javascript" src="{{url('js/cookie.js')}}"></script>
@@ -21,9 +21,10 @@
     </script>
 </head>
 <body>
+11111111111111111111
     <!-- 顶部开始 -->
     <div class="container">
-        <div class="logo"><a href="./index.html">X-admin v2.1</a></div>
+        <div class="logo"><a href="./index.html">yoyo</a></div>
         <div class="left_open">
             <i title="展开左侧栏" class="iconfont">&#xe699;</i>
         </div>
@@ -256,14 +257,20 @@
             <li>
                 <a href="javascript:;">
                     <i class="iconfont">&#xe6b4;</i>
-                    <cite>图标字体</cite>
+                    <cite>公众号设置</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="unicode.html">
+                        <a _href="{{url('type')}}">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>图标对应字体</cite>
+                            <cite>首次关注回复类型</cite>
+                        </a>
+                    </li>
+                    <li>
+                        <a _href="{{url('eventadd')}}">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>首次关注回复内容</cite>
                         </a>
                     </li>
                 </ul>
@@ -276,15 +283,15 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a href="login.html" target="_blank">
+                        <a _href="{{url('menu')}}" target="_blank">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>登录页面</cite>
+                            <cite>添加菜单</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="error.html">
+                        <a _href="{{url('menushow')}}">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>错误页面</cite>
+                            <cite>菜单展示</cite>
                         </a>
                     </li>
                 </ul>

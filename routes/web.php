@@ -68,3 +68,25 @@ route::get('addressupd','ShopController@addressupd');
 route::prefix('alipay')->group(function(){
     route::get('mobilepay',"AlipayController@mobilepay");
 });
+//绑定微信
+route::any('check',"Wechat\\WechatController@index");
+//获取token
+route::get('create','Wechat\\MaterialController@createToken');
+//文件上传
+route::get('upload','Wechat\\MaterialController@uploadFile');
+route::post('doupload','Wechat\\MaterialController@doupload');
+//图文 视频上传
+route::get('eventadd','Admin\\WeixinEventController@add');
+route::post('doadd','Admin\\WeixinEventController@doadd');
+route::get('index','Admin\\WeixinEventController@index');//展示后台
+route::get('type','Admin\\WeixinEventController@typefirst');//首次关注回复类型
+route::post('dotype','Admin\\WeixinEventController@dotype');
+
+//查询自定义菜单
+route::get('menu','Admin\\MenuController@menu');//添加菜单
+route::post('domenu','Admin\\MenuController@domenu');
+route::get('wxmenu','Admin\\MenuController@wxmenu');
+route::get('menulist','Admin\\MenuController@getMenuList');
+route::get('menushow','Admin\\MenuController@menushow');
+route::post('getmenu','Admin\\MenuController@getmenu');
+route::get('menudel','Admin\\MenuController@menudel');
