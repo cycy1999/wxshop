@@ -8,6 +8,7 @@ use App\Model\Weixin;
 use App\Model\Event;
 use App\Model\Material;
 use App\Model\Goods;
+use App\Model\Order;
 class WechatController extends Controller
 {
     /*
@@ -131,6 +132,13 @@ class WechatController extends Controller
             $picurl=url('/goodsimg/'.$arr['goods_img']);
             $url="http://blog.aulei521.com";
             $result=sprintf($resurl,$formuser,$toUser,$time,$msgtype,$title,$des,$picurl,$url);
+            echo $result;
+        }else if(strstr($keywords,'订单')){
+
+            //获取订单号
+            $order_num=Order::getOrderNum($keywords);
+            $content=json_encode($order_num,JSON_UNESCAPED_UNICODE);
+            $result=sprintf($tpl,$formuser,$toUser,$time,$msgtype,$content);
             echo $result;
         }else{
             $re=Weixin::tuling($keywords);

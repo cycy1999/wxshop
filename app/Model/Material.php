@@ -124,4 +124,22 @@ class Material extends Model
         $resultStr = sprintf($tpl, $formuser, $toUser, $time, $msgtype, $content);
         echo $resultStr;
     }
+
+    /*
+    * @content 获取用户列表
+    */
+    public static function setAllUser()
+    {
+        $token=self::setAccressToken();
+        $url='https://api.weixin.qq.com/cgi-bin/user/get?access_token='.$token;
+//        echo $url;
+        $str=file_get_contents($url);
+        $arr=json_decode($str,true);
+       return $arr['data']['openid'];
+    }
+    //获取media id
+    public static function GetMediaId()
+    {
+
+    }
 }

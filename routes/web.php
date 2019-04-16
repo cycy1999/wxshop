@@ -90,3 +90,11 @@ route::get('menulist','Admin\\MenuController@getMenuList');
 route::get('menushow','Admin\\MenuController@menushow');
 route::post('getmenu','Admin\\MenuController@getmenu');
 route::get('menudel','Admin\\MenuController@menudel');
+//获取用户列表
+route::get('setall','Admin\\GroupsController@setUser');
+//个性化菜单
+route::get('getpersonal','Admin\\GroupsController@getPersonal');
+//创建标签
+route::get('getlabel','Admin\\GroupsController@getLabel');
+route::get('setuserlabel','Admin\\GroupsController@setUserLabel');
+route::get('labgroups','Admin\\GroupsController@labGroups');
